@@ -1,0 +1,74 @@
+server
+{
+    listen 8081;
+    server_name dealer.emao.com;
+    index index.html index.htm mao.php index.php default.html default.htm default.php;
+    root  /data/www/emao.com/trunk/app/dealer/;
+    access_log /var/log/nginx/dealer.emao.com.log main;
+    error_log /var/log/nginx/dealer.emao.com.log.err error;
+#记录cookies
+	include cookies.conf;
+    error_page 404 /404.html;
+
+    #open ssi(fq)
+    ssi on;  
+    ssi_silent_errors off;  
+    ssi_types text/shtml;
+
+
+    location ~ [^/]\.php(/|$)
+    {
+        try_files $uri =404;
+        #fastcgi_pass  unix:/var/run/php-cgi.sock;
+        fastcgi_pass php5.3:8000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    #dealer首页重写
+    location = / {
+        rewrite .* /html/dealer/index.html break; 
+        proxy_pass http://city.emao.com; 
+    }
+
+    location / {
+        if (!-e $request_filename){
+            #接口地址
+            rewrite ^/api/(.*)/(.*)/(.*)$ /api.php?c=api/$1&a=$2 last;
+            #店铺页面
+            rewrite ^/(\d+)(.*?)$   /dealer.php?dealerid=$1&page_uri=$2 last;
+
+            #城市站首页(301)
+            #rewrite ^/([a-z\_]+)/?$ http://city.emao.com/$1/ permanent;
+            #行情资讯列表页(301)
+            rewrite ^/([a-z\_]+)/hangqing/list-([0-9\-]+)_(\d+)\.html$ http://city.emao.com/$1/hangqing/list-0-103_1.html permanent;
+            #资讯
+            rewrite ^/hangqing/([\d]+)/1-([0-9]+)\.html$ http://city.emao.com/hangqing/$1/$2.html permanent;
+            #车型
+            rewrite ^/([a-z\_]+)/car/item-([\d]+)-([\d]+)\.html$ http://city.emao.com/$1/car/item-$2-$3.html permanent;
+            #车市
+            rewrite ^/([a-z\_]+)/cheshi/$ http://city.emao.com/ permanent;
+
+
+
+		#city station(2)
+		#local market(normal)
+            #dealer multiply url rewrite
+            rewrite ^/news/(\d+)/(\d+).html$     /dealer.php?newsid=$2&page_uri=/news/$1/$2.html last;
+        }
+
+
+        #新版经销商列表页(v2.0城市站)
+        if ($uri ~* /[a-z\_]*/list[0-9\-\_]*\.html$){
+            rewrite /(.+)$ /mao.php?c=pc/dealer&a=index&request_uri=$1 break;
+            proxy_pass http://city.emao.com;
+        }
+        #新版经销商地图页(v2.0城市站)
+        if ($uri ~ /[a-z\_]*/map[0-9\_\-]*\.html$){
+            #rewrite /(.+)$ /$1 break;
+            rewrite /(.+)$ /mao.php?c=pc/dealer&a=map&request_uri=$1 break;
+            proxy_pass http://city.emao.com;
+        }
+    }
+}

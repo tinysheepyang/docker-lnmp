@@ -1,0 +1,9 @@
+php-fpm:
+  build: ./
+  container_name: php5.3-fpm
+  extra_hosts:
+      - "db.lan:10.171.23.124"
+      - "cache.redis.lan:10.173.6.241"
+      - "queue.redis.lan:10.173.6.241"
+  restart: always
+

@@ -1,0 +1,78 @@
+web:
+  build: ./nginx
+  ports:
+      - "8081:8081"
+  links:
+      - "php5.6"
+      - "php5.3"
+  volumes:
+      - /data/www/:/data/www/
+      - /var/log/nginx/:/var/log/nginx/ 
+      - /etc/nginx/conf.d/:/etc/nginx/conf.d/
+      - /var/php/:/var/run/
+      - /etc/localtime:/etc/localtime
+      - /data/pubdirs:/data/pubdirs
+  restart: always
+
+php5.6:
+  build: ./php5.6
+  ports:
+      - "9006:9006"
+  volumes:
+      - /data/www:/data/www
+      - /var/log/nginx/:/var/log/nginx/
+      - /var/log/php5.6:/var/log/php5.6
+      - /var/php:/var/run
+      - /etc/localtime:/etc/localtime
+      - /var/cache/nginx:/var/cache/nginx
+  extra_hosts:
+      - "db.lan:10.171.23.124"
+      - "cache.redis.lan:10.173.6.241"
+      - "queue.redis.lan:10.173.6.241"
+  restart: always
+   
+
+php5.3:
+  build: ./php5.3/
+  ports:
+      - "9003:9003"
+  volumes:
+      - /data/www:/data/www
+      - /var/log/nginx/:/var/log/nginx/
+      - /var/php/:/var/run/
+      - /var/log/php-fpm:/var/log/php-fpm
+      - /etc/localtime:/etc/localtime
+      #- /var/cache/nginx:/var/cache/nginx
+  extra_hosts:
+      - "db.lan:10.171.23.124"
+      - "cache.redis.lan:10.173.6.241"
+      - "queue.redis.lan:10.173.6.241"
+  restart: always
+
+nginx-proxy:
+    build: ./nginx-proxy/
+    ports:
+        - "80:80"
+        - "443:443"
+    links:
+        - "web"
+    volumes:
+        - /var/log/nginx/:/var/log/nginx/
+        - ./nginx-proxy/sites-enabled/:/etc/nginx/conf.d/
+    restart: always
+
+
+#dns:
+#  build: ./dnsmasq/
+#  container_name: dns
+#  volumes:
+#      - ./dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+#      - ./dnsmasq/zones:/etc/dnsmasq.d
+#  dns:
+#      - 127.0.0.1
+#      - 114.114.114.114
+#  ports:
+#      - "53:53/udp"
+#  restart: always
+
+

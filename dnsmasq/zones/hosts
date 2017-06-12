@@ -1,0 +1,9 @@
+address=/dev/127.0.0.1
+address=/work/127.0.0.1
+address=/zabbix.master.ops/10.172.249.254
+address=/db.lan/10.173.1.61
+address=/auto.emao.com/127.0.0.1
+address=/baike.emao.com/127.0.0.1
+address=/brand.emao.com/127.0.0.1
+address=/ask.emao.com/127.0.0.1
+address=/club.emao.com/127.0.0.1

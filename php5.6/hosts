@@ -1,0 +1,88 @@
+127.0.0.1   ali-bj-emao-web-all-n-01  
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4 ali-bj-emao-web-all-n-01  
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.173.1.61     iZ256e5rjnbZ ali-bj-emao-web-all-n-01
+
+10.173.6.241    cache.redis.lan 
+10.173.6.241	queue.redis.lan
+
+10.173.6.241	emaosent1.redis.lan
+10.173.6.241	emaosent2.redis.lan
+
+10.173.6.241    mem1_img.lan
+10.44.169.28	mem2_img.lan
+
+#10.171.14.92	db.lan
+10.173.1.61	db.lan
+
+10.51.92.242 brush.loc.db.lan
+10.51.92.242	loc.db.lan
+
+10.172.158.83	searchd.lan
+
+61.149.143.218 salt-master
+
+10.171.117.236 plt1.mem.lan
+10.171.121.164 plt2.mem.lan
+100.98.137.12 plt.rpc.lan
+127.0.0.1	n1.nodejs.lan
+127.0.0.1	n2.nodejs.lan
+
+
+61.149.143.218  vpn.emao.net
+101.200.96.93   app2.emao.com
+
+
+# 配置atm_yimao分流
+100.98.132.198       dealer.emao.com
+
+100.98.132.197       mall.emao.com
+100.98.132.197       kefu.yun.emao.com
+100.98.132.197       womall.emao.com
+100.98.132.197       huodong.emao.com
+100.98.132.197       huodong.m.emao.com
+100.98.132.197       mall.api.emao.com
+100.98.132.197       mall.m.emao.com
+100.98.132.197       notifyserver.emao.com
+
+127.0.0.1       www.emao.com
+# 必须注释 news.emao.com
+#127.0.0.1       news.emao.com
+127.0.0.1       club.emao.com
+127.0.0.1       auto.emao.com
+127.0.0.1       ask.emao.com
+127.0.0.1       baike.emao.com
+127.0.0.1       brand.emao.com
+127.0.0.1       app.emao.com
+127.0.0.1       so.emao.com
+127.0.0.1       comment.emao.com
+127.0.0.1       i.emao.com
+101.201.32.28       i.m.emao.com
+127.0.0.1       club.m.emao.com
+127.0.0.1       m.emao.com
+127.0.0.1       auto.m.emao.com
+127.0.0.1       brand.m.emao.com
+127.0.0.1       so.m.emao.com
+#100.98.132.202	s.emao.net
+#101.200.139.221	s.emao.net
+
+10.172.249.254        zabbix.master.ops
+10.170.252.105	git.emao.net
+100.98.132.206	wemedia.emao.com
+
+100.98.221.181	dgzt.emao.com	# 导购组专题内网SLB
+100.98.221.181	dgzt.m.emao.com	# 导购组专题内网SLB
+
+
+# log analysis server
+10.171.52.85    zookeeper.3.lan
+10.44.166.238   task01.hadoop.lan
+10.172.227.27   master.hadoop.lan
+# log analysis server
+10.171.52.85		zookeeper.3.lan
+10.44.166.238	      task01.hadoop.lan
+10.172.227.27	      master.hadoop.lan
+
+100.98.221.181  car.api.emao.com
+100.98.221.181  center.api.emao.com
+100.114.29.56 app.api.emao.com
